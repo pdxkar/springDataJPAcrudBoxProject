@@ -1,0 +1,9 @@
+Spring Data JPA CRUD Application - BOXES
+
+Technology Stack:
+Spring Data Repository (JPA)
+REST
+Hibernate
+AngularJS
+
+This CRUD application allows a user to create, update, and delete boxes, and view the existing list of boxes.

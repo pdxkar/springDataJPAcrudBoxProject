@@ -1,0 +1,58 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+*.log
+*.log.*
+*StringLocalizationAssertionResults.txt
+*en_android.octet-stream
+*en_android.unknown
+
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+*target*
+*.war
+*.ear
+*.class
+
+# eclipse specific git ignore
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# Generated test file
+.strings
+
+#spring
+spring.lck
+spring.log
+spring.properties
+spring.script
