@@ -1,19 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.petrikainulainen.spring</groupId>
-    <artifactId>data-jpa-tutorial-part-two</artifactId>
+    <groupId>com.kroot.spring</groupId>
+    <artifactId>box-spring-JPA-CRUD-app</artifactId>
     <packaging>war</packaging>
     <version>0.1</version>
-    <name>Spring Data JPA Tutorial Part Two</name>
-    <description>Spring Data JPA Tutorial Part Two</description>
+    <name>Box CRUD App with Spring Data JPA</name>
+    <description>Box CRUD App with Spring Data JPA</description>
     <licenses>
         <license>
             <name>Apache License 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
-    <url>http://www.petrikainulainen.net</url>
+    <url>http://http://www.catalystitservices.com</url>
     <repositories>
         <repository>
             <id>repository.jboss.org-public</id>
@@ -189,7 +189,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>data-jpa-tutorial-part-two</finalName>
+        <finalName>box-spring-JPA-CRUD-app</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
