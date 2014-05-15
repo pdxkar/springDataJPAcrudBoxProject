@@ -17,24 +17,24 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@SessionAttributes("person")
+@SessionAttributes("box")
 public class BoxController extends AbstractController {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(BoxController.class);
     
-    protected static final String ERROR_MESSAGE_KEY_DELETED_PERSON_WAS_NOT_FOUND = "error.message.deleted.not.found";
-    protected static final String ERROR_MESSAGE_KEY_EDITED_PERSON_WAS_NOT_FOUND = "error.message.edited.not.found";
+    protected static final String ERROR_MESSAGE_KEY_DELETED_BOX_WAS_NOT_FOUND = "error.message.deleted.not.found";
+    protected static final String ERROR_MESSAGE_KEY_EDITED_BOX_WAS_NOT_FOUND = "error.message.edited.not.found";
     
-    protected static final String FEEDBACK_MESSAGE_KEY_PERSON_CREATED = "feedback.message.person.created";
-    protected static final String FEEDBACK_MESSAGE_KEY_PERSON_DELETED = "feedback.message.person.deleted";
-    protected static final String FEEDBACK_MESSAGE_KEY_PERSON_EDITED = "feedback.message.person.edited";
+    protected static final String FEEDBACK_MESSAGE_KEY_BOX_CREATED = "feedback.message.box.created";
+    protected static final String FEEDBACK_MESSAGE_KEY_BOX_DELETED = "feedback.message.box.deleted";
+    protected static final String FEEDBACK_MESSAGE_KEY_BOX_EDITED = "feedback.message.box.edited";
     
-    protected static final String MODEL_ATTIRUTE_PERSON = "person";
-    protected static final String MODEL_ATTRIBUTE_PERSONS = "persons";
+    protected static final String MODEL_ATTIRUTE_BOX = "box";
+    protected static final String MODEL_ATTRIBUTE_BOXES = "boxes";
     
-    protected static final String PERSON_ADD_FORM_VIEW = "person/create";
-    protected static final String PERSON_EDIT_FORM_VIEW = "person/edit";
-    protected static final String PERSON_LIST_VIEW = "person/list";
+    protected static final String BOX_ADD_FORM_VIEW = "box/create";
+    protected static final String BOX_EDIT_FORM_VIEW = "box/edit";
+    protected static final String BOX_LIST_VIEW = "box/list";
     
     protected static final String REQUEST_MAPPING_LIST = "/";
     
@@ -42,107 +42,107 @@ public class BoxController extends AbstractController {
     private BoxService boxService;
 
     /**
-     * Processes delete person requests.
-     * @param id    The id of the deleted person.
+     * Processes delete box requests.
+     * @param id    The id of the deleted box.
      * @param attributes
      * @return
      */
-    @RequestMapping(value = "/person/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/box/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id, RedirectAttributes attributes) {
-        LOGGER.debug("Deleting person with id: " + id);
+        LOGGER.debug("Deleting box with id: " + id);
 
         try {
             Box deleted = boxService.delete(id);
-            addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_PERSON_DELETED, deleted.getName());
+            addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_BOX_DELETED, deleted.getName());
         } catch (BoxNotFoundException e) {
-            LOGGER.debug("No person found with id: " + id);
-            addErrorMessage(attributes, ERROR_MESSAGE_KEY_DELETED_PERSON_WAS_NOT_FOUND);
+            LOGGER.debug("No box found with id: " + id);
+            addErrorMessage(attributes, ERROR_MESSAGE_KEY_DELETED_BOX_WAS_NOT_FOUND);
         }
 
         return createRedirectViewPath(REQUEST_MAPPING_LIST);
     }
 
     /**
-     * Processes create person requests.
+     * Processes create box requests.
      * @param model
-     * @return  The name of the create person form view.
+     * @return  The name of the create box form view.
      */
-    @RequestMapping(value = "/person/create", method = RequestMethod.GET) 
-    public String showCreatePersonForm(Model model) {
-        LOGGER.debug("Rendering create person form");
+    @RequestMapping(value = "/box/create", method = RequestMethod.GET) 
+    public String showCreateBoxForm(Model model) {
+        LOGGER.debug("Rendering create box form");
         
-        model.addAttribute(MODEL_ATTIRUTE_PERSON, new BoxDTO());
+        model.addAttribute(MODEL_ATTIRUTE_BOX, new BoxDTO());
 
-        return PERSON_ADD_FORM_VIEW;
+        return BOX_ADD_FORM_VIEW;
     }
 
     /**
-     * Processes the submissions of create person form.
-     * @param created   The information of the created persons.
+     * Processes the submissions of create box form.
+     * @param created   The information of the created boxes.
      * @param bindingResult
      * @param attributes
      * @return
      */
-    @RequestMapping(value = "/person/create", method = RequestMethod.POST)
-    public String submitCreatePersonForm(@Valid @ModelAttribute(MODEL_ATTIRUTE_PERSON) BoxDTO created, BindingResult bindingResult, RedirectAttributes attributes) {
+    @RequestMapping(value = "/box/create", method = RequestMethod.POST)
+    public String submitCreateBoxForm(@Valid @ModelAttribute(MODEL_ATTIRUTE_BOX) BoxDTO created, BindingResult bindingResult, RedirectAttributes attributes) {
         LOGGER.debug("Create box form was submitted with information: " + created);
 
         if (bindingResult.hasErrors()) {
-            return PERSON_ADD_FORM_VIEW;
+            return BOX_ADD_FORM_VIEW;
         }
                 
         Box box = boxService.create(created);
 
-        addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_PERSON_CREATED, box.getName());
+        addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_BOX_CREATED, box.getName());
 
         return createRedirectViewPath(REQUEST_MAPPING_LIST);
     }
 
     /**
-     * Processes edit person requests.
-     * @param id    The id of the edited person.
+     * Processes edit box requests.
+     * @param id    The id of the edited box.
      * @param model
      * @param attributes
-     * @return  The name of the edit person form view.
+     * @return  The name of the edit box form view.
      */
-    @RequestMapping(value = "/person/edit/{id}", method = RequestMethod.GET)
-    public String showEditPersonForm(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
+    @RequestMapping(value = "/box/edit/{id}", method = RequestMethod.GET)
+    public String showEditBoxForm(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
         LOGGER.debug("Rendering edit box form for box with id: " + id);
         
         Box box = boxService.findById(id);
         if (box == null) {
             LOGGER.debug("No box found with id: " + id);
-            addErrorMessage(attributes, ERROR_MESSAGE_KEY_EDITED_PERSON_WAS_NOT_FOUND);
+            addErrorMessage(attributes, ERROR_MESSAGE_KEY_EDITED_BOX_WAS_NOT_FOUND);
             return createRedirectViewPath(REQUEST_MAPPING_LIST);            
         }
 
-        model.addAttribute(MODEL_ATTIRUTE_PERSON, constructFormObject(box));
+        model.addAttribute(MODEL_ATTIRUTE_BOX, constructFormObject(box));
         
-        return PERSON_EDIT_FORM_VIEW;
+        return BOX_EDIT_FORM_VIEW;
     }
 
     /**
-     * Processes the submissions of edit person form.
-     * @param updated   The information of the edited person.
+     * Processes the submissions of edit box form.
+     * @param updated   The information of the edited box.
      * @param bindingResult
      * @param attributes
      * @return
      */
-    @RequestMapping(value = "/person/edit", method = RequestMethod.POST)
-    public String submitEditPersonForm(@Valid @ModelAttribute(MODEL_ATTIRUTE_PERSON) BoxDTO updated, BindingResult bindingResult, RedirectAttributes attributes) {
-        LOGGER.debug("Edit person form was submitted with information: " + updated);
+    @RequestMapping(value = "/box/edit", method = RequestMethod.POST)
+    public String submitEditBoxForm(@Valid @ModelAttribute(MODEL_ATTIRUTE_BOX) BoxDTO updated, BindingResult bindingResult, RedirectAttributes attributes) {
+        LOGGER.debug("Edit box form was submitted with information: " + updated);
         
         if (bindingResult.hasErrors()) {
-            LOGGER.debug("Edit person form contains validation errors. Rendering form view.");
-            return PERSON_EDIT_FORM_VIEW;
+            LOGGER.debug("Edit box form contains validation errors. Rendering form view.");
+            return BOX_EDIT_FORM_VIEW;
         }
         
         try {
             Box box = boxService.update(updated);
-            addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_PERSON_EDITED, box.getName());
+            addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_BOX_EDITED, box.getName());
         } catch (BoxNotFoundException e) {
-            LOGGER.debug("No person was found with id: " + updated.getId());
-            addErrorMessage(attributes, ERROR_MESSAGE_KEY_EDITED_PERSON_WAS_NOT_FOUND);
+            LOGGER.debug("No box was found with id: " + updated.getId());
+            addErrorMessage(attributes, ERROR_MESSAGE_KEY_EDITED_BOX_WAS_NOT_FOUND);
         }
         
         return createRedirectViewPath(REQUEST_MAPPING_LIST);
@@ -159,18 +159,18 @@ public class BoxController extends AbstractController {
     }
 
     /**
-     * Processes requests to home page which lists all available persons.
+     * Processes requests to home page which lists all available boxes.
      * @param model
-     * @return  The name of the person list view.
+     * @return  The name of the box list view.
      */
     @RequestMapping(value = REQUEST_MAPPING_LIST, method = RequestMethod.GET)
     public String showList(Model model) {
-        LOGGER.debug("Rendering person list page");
+        LOGGER.debug("Rendering box list page");
 
         List<Box> boxes = boxService.findAll();
-        model.addAttribute(MODEL_ATTRIBUTE_PERSONS, boxes);
+        model.addAttribute(MODEL_ATTRIBUTE_BOXES, boxes);
 
-        return PERSON_LIST_VIEW;
+        return BOX_LIST_VIEW;
     }
 
     /**

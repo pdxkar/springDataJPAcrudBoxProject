@@ -6,11 +6,11 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * An entity class which contains the information of a single person.
+ * An entity class which contains the information of a single box.
  * @author Petri Kainulainen
  */
 @Entity
-@Table(name = "persons")
+@Table(name = "boxes")
 public class Box {
     
     @Id
@@ -59,8 +59,8 @@ public class Box {
     }
 
     /**
-     * Gets the full name of the person.
-     * @return  The full name of the person.
+     * Gets the full name of the box.
+     * @return  The full name of the box.
      */
     @Transient
     public String getName() {

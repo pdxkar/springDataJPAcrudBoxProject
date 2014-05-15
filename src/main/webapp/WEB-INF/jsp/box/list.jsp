@@ -15,22 +15,22 @@
         <div class="errorblock"><c:out value="${errorMessage}"/></div>
     </c:if>
 </div>
-<h1><spring:message code="person.list.page.title"/></h1>
-<a href="/person/create"><spring:message code="person.create.link.label"/></a>
+<h1><spring:message code="box.list.page.title"/></h1>
+<a href="/box/create"><spring:message code="box.create.link.label"/></a>
 <table>
     <thead>
     <tr>
-        <td><spring:message code="person.label.lastName"/></td>
-        <td><spring:message code="person.label.firstName"/></td>
+        <td><spring:message code="box.label.lastName"/></td>
+        <td><spring:message code="box.label.firstName"/></td>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${persons}" var="person">
+    <c:forEach items="${boxes}" var="box">
         <tr>
-            <td><c:out value="${person.lastName}"/></td>
-            <td><c:out value="${person.firstName}"/></td>
-            <td><a href="/person/edit/<c:out value="${person.id}"/>"><spring:message code="person.edit.link.label"/></a></td>
-            <td><a href="/person/delete/<c:out value="${person.id}"/>"><spring:message code="person.delete.link.label"/></a></td>
+            <td><c:out value="${box.lastName}"/></td>
+            <td><c:out value="${box.firstName}"/></td>
+            <td><a href="/box/edit/<c:out value="${box.id}"/>"><spring:message code="box.edit.link.label"/></a></td>
+            <td><a href="/box/delete/<c:out value="${box.id}"/>"><spring:message code="box.delete.link.label"/></a></td>
         </tr>
     </c:forEach>
     </tbody>

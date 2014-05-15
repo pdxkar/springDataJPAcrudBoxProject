@@ -6,44 +6,43 @@ import com.kroot.spring.datajpa.model.Box;
 import java.util.List;
 
 /**
- * Declares methods used to obtain and modify person information.
- * @author Petri Kainulainen
+ * Declares methods used to obtain and modify box information.
  */
 public interface BoxService {
 
     /**
-     * Creates a new person.
-     * @param created   The information of the created person.
-     * @return  The created person.
+     * Creates a new box.
+     * @param created   The information of the created box.
+     * @return  The created box.
      */
     public Box create(BoxDTO created);
 
     /**
-     * Deletes a person.
-     * @param personId  The id of the deleted person.
-     * @return  The deleted person.
-     * @throws BoxNotFoundException  if no person is found with the given id.
+     * Deletes a box.
+     * @param boxId  The id of the deleted box.
+     * @return  The deleted box.
+     * @throws BoxNotFoundException  if no box is found with the given id.
      */
-    public Box delete(Long personId) throws BoxNotFoundException;
+    public Box delete(Long boxId) throws BoxNotFoundException;
 
     /**
-     * Finds all persons.
-     * @return  A list of persons.
+     * Finds all boxes.
+     * @return  A list of boxes.
      */
     public List<Box> findAll();
 
     /**
-     * Finds person by id.
-     * @param id    The id of the wanted person.
-     * @return  The found person. If no person is found, this method returns null.
+     * Finds box by id.
+     * @param id    The id of the wanted box.
+     * @return  The found box. If no box is found, this method returns null.
      */
     public Box findById(Long id);
 
     /**
-     * Updates the information of a person.
-     * @param updated   The information of the updated person.
-     * @return  The updated person.
-     * @throws BoxNotFoundException  if no person is found with given id.
+     * Updates the information of a box.
+     * @param updated   The information of the updated box.
+     * @return  The updated box.
+     * @throws BoxNotFoundException  if no box is found with given id.
      */
     public Box update(BoxDTO updated) throws BoxNotFoundException;
 }

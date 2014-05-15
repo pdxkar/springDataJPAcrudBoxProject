@@ -31,13 +31,13 @@ public class RepositoryBoxService implements BoxService {
 
     @Transactional(rollbackFor = BoxNotFoundException.class)
     @Override
-    public Box delete(Long personId) throws BoxNotFoundException {
-        LOGGER.debug("Deleting person with id: " + personId);
+    public Box delete(Long boxId) throws BoxNotFoundException {
+        LOGGER.debug("Deleting box with id: " + boxId);
         
-        Box deleted = boxRepository.findOne(personId);
+        Box deleted = boxRepository.findOne(boxId);
         
         if (deleted == null) {
-            LOGGER.debug("No person found with id: " + personId);
+            LOGGER.debug("No box found with id: " + boxId);
             throw new BoxNotFoundException();
         }
         
@@ -48,14 +48,14 @@ public class RepositoryBoxService implements BoxService {
     @Transactional(readOnly = true)
     @Override
     public List<Box> findAll() {
-        LOGGER.debug("Finding all persons");
+        LOGGER.debug("Finding all boxes");
         return boxRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     @Override
     public Box findById(Long id) {
-        LOGGER.debug("Finding person by id: " + id);
+        LOGGER.debug("Finding box by id: " + id);
         return boxRepository.findOne(id);
     }
 
