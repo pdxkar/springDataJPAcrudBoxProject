@@ -3,8 +3,8 @@ package com.kroot.spring.datajpa.controller;
 import com.kroot.spring.datajpa.dto.BoxDTO;
 import com.kroot.spring.datajpa.model.Box;
 import com.kroot.spring.datajpa.model.PersonTestUtil;
-import com.kroot.spring.datajpa.service.PersonNotFoundException;
-import com.kroot.spring.datajpa.service.PersonService;
+import com.kroot.spring.datajpa.service.BoxNotFoundException;
+import com.kroot.spring.datajpa.service.BoxService;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.ui.Model;
@@ -31,7 +31,7 @@ public class BoxControllerTest extends AbstractTestController {
 
     private BoxController controller;
     
-    private PersonService personServiceMock;
+    private BoxService boxServiceMock;
 
     @Override
     public void setUpTest() {
@@ -39,22 +39,22 @@ public class BoxControllerTest extends AbstractTestController {
 
         controller.setMessageSource(getMessageSourceMock());
 
-        personServiceMock = mock(PersonService.class);
-        controller.setPersonService(personServiceMock);
+        boxServiceMock = mock(BoxService.class);
+        controller.setBoxService(boxServiceMock);
     }
     
     @Test
-    public void delete() throws PersonNotFoundException {
+    public void delete() throws BoxNotFoundException {
         Box deleted = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
-        when(personServiceMock.delete(PERSON_ID)).thenReturn(deleted);
+        when(boxServiceMock.delete(PERSON_ID)).thenReturn(deleted);
         
         initMessageSourceForFeedbackMessage(BoxController.FEEDBACK_MESSAGE_KEY_PERSON_DELETED);
         
         RedirectAttributes attributes = new RedirectAttributesModelMap();
         String view = controller.delete(PERSON_ID, attributes);
         
-        verify(personServiceMock, times(1)).delete(PERSON_ID);
-        verifyNoMoreInteractions(personServiceMock);
+        verify(boxServiceMock, times(1)).delete(PERSON_ID);
+        verifyNoMoreInteractions(boxServiceMock);
         assertFeedbackMessage(attributes, BoxController.FEEDBACK_MESSAGE_KEY_PERSON_DELETED);
         
         String expectedView = createExpectedRedirectViewPath(BoxController.REQUEST_MAPPING_LIST);
@@ -62,16 +62,16 @@ public class BoxControllerTest extends AbstractTestController {
     }
     
     @Test
-    public void deleteWhenPersonIsNotFound() throws PersonNotFoundException {
-        when(personServiceMock.delete(PERSON_ID)).thenThrow(new PersonNotFoundException());
+    public void deleteWhenPersonIsNotFound() throws BoxNotFoundException {
+        when(boxServiceMock.delete(PERSON_ID)).thenThrow(new BoxNotFoundException());
         
         initMessageSourceForErrorMessage(BoxController.ERROR_MESSAGE_KEY_DELETED_PERSON_WAS_NOT_FOUND);
         
         RedirectAttributes attributes = new RedirectAttributesModelMap();
         String view = controller.delete(PERSON_ID, attributes);
         
-        verify(personServiceMock, times(1)).delete(PERSON_ID);
-        verifyNoMoreInteractions(personServiceMock);
+        verify(boxServiceMock, times(1)).delete(PERSON_ID);
+        verifyNoMoreInteractions(boxServiceMock);
         assertErrorMessage(attributes, BoxController.ERROR_MESSAGE_KEY_DELETED_PERSON_WAS_NOT_FOUND);
         
         String expectedView = createExpectedRedirectViewPath(BoxController.REQUEST_MAPPING_LIST);
@@ -84,7 +84,7 @@ public class BoxControllerTest extends AbstractTestController {
         
         String view = controller.showCreatePersonForm(model);
         
-        verifyZeroInteractions(personServiceMock);
+        verifyZeroInteractions(boxServiceMock);
         
         assertEquals(BoxController.PERSON_ADD_FORM_VIEW, view);
 
@@ -102,7 +102,7 @@ public class BoxControllerTest extends AbstractTestController {
         
         BoxDTO created = PersonTestUtil.createDTO(PERSON_ID, FIRST_NAME, LAST_NAME);
         Box model = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
-        when(personServiceMock.create(created)).thenReturn(model);
+        when(boxServiceMock.create(created)).thenReturn(model);
 
         initMessageSourceForFeedbackMessage(BoxController.FEEDBACK_MESSAGE_KEY_PERSON_CREATED);
         
@@ -111,16 +111,16 @@ public class BoxControllerTest extends AbstractTestController {
         
         String view = controller.submitCreatePersonForm(created, result, attributes);
         
-        verify(personServiceMock, times(1)).create(created);
-        verifyNoMoreInteractions(personServiceMock);
+        verify(boxServiceMock, times(1)).create(created);
+        verifyNoMoreInteractions(boxServiceMock);
         
         String expectedViewPath = createExpectedRedirectViewPath(BoxController.REQUEST_MAPPING_LIST);
         assertEquals(expectedViewPath, view);
         
         assertFeedbackMessage(attributes, BoxController.FEEDBACK_MESSAGE_KEY_PERSON_CREATED);
         
-        verify(personServiceMock, times(1)).create(created);
-        verifyNoMoreInteractions(personServiceMock);
+        verify(boxServiceMock, times(1)).create(created);
+        verifyNoMoreInteractions(boxServiceMock);
     }
     
     @Test
@@ -134,7 +134,7 @@ public class BoxControllerTest extends AbstractTestController {
         
         String view = controller.submitCreatePersonForm(created, result, attributes);
         
-        verifyZeroInteractions(personServiceMock);
+        verifyZeroInteractions(boxServiceMock);
         
         assertEquals(BoxController.PERSON_ADD_FORM_VIEW, view);
         assertFieldErrors(result, FIELD_NAME_FIRST_NAME, FIELD_NAME_LAST_NAME);
@@ -151,7 +151,7 @@ public class BoxControllerTest extends AbstractTestController {
 
         String view = controller.submitCreatePersonForm(created, result, attributes);
 
-        verifyZeroInteractions(personServiceMock);
+        verifyZeroInteractions(boxServiceMock);
 
         assertEquals(BoxController.PERSON_ADD_FORM_VIEW, view);
         assertFieldErrors(result, FIELD_NAME_FIRST_NAME);
@@ -168,7 +168,7 @@ public class BoxControllerTest extends AbstractTestController {
 
         String view = controller.submitCreatePersonForm(created, result, attributes);
 
-        verifyZeroInteractions(personServiceMock);
+        verifyZeroInteractions(boxServiceMock);
 
         assertEquals(BoxController.PERSON_ADD_FORM_VIEW, view);
         assertFieldErrors(result, FIELD_NAME_LAST_NAME);
@@ -177,15 +177,15 @@ public class BoxControllerTest extends AbstractTestController {
     @Test
     public void showEditPersonForm() {
         Box box = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
-        when(personServiceMock.findById(PERSON_ID)).thenReturn(box);
+        when(boxServiceMock.findById(PERSON_ID)).thenReturn(box);
         
         Model model = new BindingAwareModelMap();
         RedirectAttributes attributes = new RedirectAttributesModelMap();
         
         String view = controller.showEditPersonForm(PERSON_ID, model, attributes);
         
-        verify(personServiceMock, times(1)).findById(PERSON_ID);
-        verifyNoMoreInteractions(personServiceMock);
+        verify(boxServiceMock, times(1)).findById(PERSON_ID);
+        verifyNoMoreInteractions(boxServiceMock);
         
         assertEquals(BoxController.PERSON_EDIT_FORM_VIEW, view);
         
@@ -199,7 +199,7 @@ public class BoxControllerTest extends AbstractTestController {
     
     @Test
     public void showEditPersonFormWhenPersonIsNotFound() {
-        when(personServiceMock.findById(PERSON_ID)).thenReturn(null);
+        when(boxServiceMock.findById(PERSON_ID)).thenReturn(null);
         
         initMessageSourceForErrorMessage(BoxController.ERROR_MESSAGE_KEY_EDITED_PERSON_WAS_NOT_FOUND);
         
@@ -208,8 +208,8 @@ public class BoxControllerTest extends AbstractTestController {
         
         String view = controller.showEditPersonForm(PERSON_ID, model, attributes);
         
-        verify(personServiceMock, times(1)).findById(PERSON_ID);
-        verifyNoMoreInteractions(personServiceMock);
+        verify(boxServiceMock, times(1)).findById(PERSON_ID);
+        verifyNoMoreInteractions(boxServiceMock);
         
         String expectedView = createExpectedRedirectViewPath(BoxController.REQUEST_MAPPING_LIST);
         assertEquals(expectedView, view);
@@ -218,12 +218,12 @@ public class BoxControllerTest extends AbstractTestController {
     }
     
     @Test
-    public void submitEditPersonForm() throws PersonNotFoundException {
+    public void submitEditPersonForm() throws BoxNotFoundException {
         MockHttpServletRequest mockRequest = new MockHttpServletRequest("/box/edit", "POST");
         BoxDTO updated = PersonTestUtil.createDTO(PERSON_ID, FIRST_NAME_UPDATED, LAST_NAME_UPDATED);
         Box box = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME_UPDATED, LAST_NAME_UPDATED);
         
-        when(personServiceMock.update(updated)).thenReturn(box);
+        when(boxServiceMock.update(updated)).thenReturn(box);
         
         initMessageSourceForFeedbackMessage(BoxController.FEEDBACK_MESSAGE_KEY_PERSON_EDITED);
         
@@ -232,8 +232,8 @@ public class BoxControllerTest extends AbstractTestController {
         
         String view = controller.submitEditPersonForm(updated, bindingResult, attributes);
         
-        verify(personServiceMock, times(1)).update(updated);
-        verifyNoMoreInteractions(personServiceMock);
+        verify(boxServiceMock, times(1)).update(updated);
+        verifyNoMoreInteractions(boxServiceMock);
         
         String expectedView = createExpectedRedirectViewPath(BoxController.REQUEST_MAPPING_LIST);
         assertEquals(expectedView, view);
@@ -245,11 +245,11 @@ public class BoxControllerTest extends AbstractTestController {
     }
     
     @Test
-    public void submitEditPersonFormWhenPersonIsNotFound() throws PersonNotFoundException {
+    public void submitEditPersonFormWhenPersonIsNotFound() throws BoxNotFoundException {
         MockHttpServletRequest mockRequest = new MockHttpServletRequest("/person/edit", "POST");
         BoxDTO updated = PersonTestUtil.createDTO(PERSON_ID, FIRST_NAME_UPDATED, LAST_NAME_UPDATED);
         
-        when(personServiceMock.update(updated)).thenThrow(new PersonNotFoundException());
+        when(boxServiceMock.update(updated)).thenThrow(new BoxNotFoundException());
         initMessageSourceForErrorMessage(BoxController.ERROR_MESSAGE_KEY_EDITED_PERSON_WAS_NOT_FOUND);
         
         BindingResult bindingResult = bindAndValidate(mockRequest, updated);
@@ -257,8 +257,8 @@ public class BoxControllerTest extends AbstractTestController {
         
         String view = controller.submitEditPersonForm(updated, bindingResult, attributes);
         
-        verify(personServiceMock, times(1)).update(updated);
-        verifyNoMoreInteractions(personServiceMock);
+        verify(boxServiceMock, times(1)).update(updated);
+        verifyNoMoreInteractions(boxServiceMock);
         
         String expectedView = createExpectedRedirectViewPath(BoxController.REQUEST_MAPPING_LIST);
         assertEquals(expectedView, view);
@@ -276,7 +276,7 @@ public class BoxControllerTest extends AbstractTestController {
         
         String view = controller.submitEditPersonForm(updated, bindingResult, attributes);
         
-        verifyZeroInteractions(personServiceMock);
+        verifyZeroInteractions(boxServiceMock);
         
         assertEquals(BoxController.PERSON_EDIT_FORM_VIEW, view);
         assertFieldErrors(bindingResult, FIELD_NAME_FIRST_NAME, FIELD_NAME_LAST_NAME);
@@ -292,7 +292,7 @@ public class BoxControllerTest extends AbstractTestController {
 
         String view = controller.submitEditPersonForm(updated, bindingResult, attributes);
 
-        verifyZeroInteractions(personServiceMock);
+        verifyZeroInteractions(boxServiceMock);
 
         assertEquals(BoxController.PERSON_EDIT_FORM_VIEW, view);
         assertFieldErrors(bindingResult, FIELD_NAME_FIRST_NAME);
@@ -308,7 +308,7 @@ public class BoxControllerTest extends AbstractTestController {
 
         String view = controller.submitEditPersonForm(updated, bindingResult, attributes);
 
-        verifyZeroInteractions(personServiceMock);
+        verifyZeroInteractions(boxServiceMock);
 
         assertEquals(BoxController.PERSON_EDIT_FORM_VIEW, view);
         assertFieldErrors(bindingResult, FIELD_NAME_LAST_NAME);
@@ -317,13 +317,13 @@ public class BoxControllerTest extends AbstractTestController {
     @Test
     public void showList() {
         List<Box> boxes = new ArrayList<Box>();
-        when(personServiceMock.findAll()).thenReturn(boxes);
+        when(boxServiceMock.findAll()).thenReturn(boxes);
         
         Model model = new BindingAwareModelMap();
         String view = controller.showList(model);
         
-        verify(personServiceMock, times(1)).findAll();
-        verifyNoMoreInteractions(personServiceMock);
+        verify(boxServiceMock, times(1)).findAll();
+        verifyNoMoreInteractions(boxServiceMock);
         
         assertEquals(BoxController.PERSON_LIST_VIEW, view);
         assertEquals(boxes, model.asMap().get(BoxController.MODEL_ATTRIBUTE_PERSONS));

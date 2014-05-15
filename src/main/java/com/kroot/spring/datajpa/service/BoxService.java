@@ -9,7 +9,7 @@ import java.util.List;
  * Declares methods used to obtain and modify person information.
  * @author Petri Kainulainen
  */
-public interface PersonService {
+public interface BoxService {
 
     /**
      * Creates a new person.
@@ -22,9 +22,9 @@ public interface PersonService {
      * Deletes a person.
      * @param personId  The id of the deleted person.
      * @return  The deleted person.
-     * @throws PersonNotFoundException  if no person is found with the given id.
+     * @throws BoxNotFoundException  if no person is found with the given id.
      */
-    public Box delete(Long personId) throws PersonNotFoundException;
+    public Box delete(Long personId) throws BoxNotFoundException;
 
     /**
      * Finds all persons.
@@ -43,7 +43,7 @@ public interface PersonService {
      * Updates the information of a person.
      * @param updated   The information of the updated person.
      * @return  The updated person.
-     * @throws PersonNotFoundException  if no person is found with given id.
+     * @throws BoxNotFoundException  if no person is found with given id.
      */
-    public Box update(BoxDTO updated) throws PersonNotFoundException;
+    public Box update(BoxDTO updated) throws BoxNotFoundException;
 }

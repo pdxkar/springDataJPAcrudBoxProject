@@ -3,7 +3,7 @@ package com.kroot.spring.datajpa.service;
 import com.kroot.spring.datajpa.dto.BoxDTO;
 import com.kroot.spring.datajpa.model.Box;
 import com.kroot.spring.datajpa.model.PersonTestUtil;
-import com.kroot.spring.datajpa.repository.PersonRepository;
+import com.kroot.spring.datajpa.repository.BoxRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -22,16 +22,16 @@ public class RepositoryBoxServiceTest {
     private static final String LAST_NAME = "Bar";
     private static final String LAST_NAME_UPDATED = "BarUpdated";
     
-    private RepositoryPersonService personService;
+    private RepositoryBoxService personService;
 
-    private PersonRepository personRepositoryMock;
+    private BoxRepository boxRepositoryMock;
 
     @Before
     public void setUp() {
-        personService = new RepositoryPersonService();
+        personService = new RepositoryBoxService();
 
-        personRepositoryMock = mock(PersonRepository.class);
-        personService.setPersonRepository(personRepositoryMock);
+        boxRepositoryMock = mock(BoxRepository.class);
+        personService.setBoxRepository(boxRepositoryMock);
     }
     
     @Test
@@ -39,51 +39,51 @@ public class RepositoryBoxServiceTest {
         BoxDTO created = PersonTestUtil.createDTO(null, FIRST_NAME, LAST_NAME);
         Box persisted = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
         
-        when(personRepositoryMock.save(any(Box.class))).thenReturn(persisted);
+        when(boxRepositoryMock.save(any(Box.class))).thenReturn(persisted);
         
         Box returned = personService.create(created);
 
         ArgumentCaptor<Box> personArgument = ArgumentCaptor.forClass(Box.class);
-        verify(personRepositoryMock, times(1)).save(personArgument.capture());
-        verifyNoMoreInteractions(personRepositoryMock);
+        verify(boxRepositoryMock, times(1)).save(personArgument.capture());
+        verifyNoMoreInteractions(boxRepositoryMock);
 
         assertPerson(created, personArgument.getValue());
         assertEquals(persisted, returned);
     }
     
     @Test
-    public void delete() throws PersonNotFoundException {
+    public void delete() throws BoxNotFoundException {
         Box deleted = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
-        when(personRepositoryMock.findOne(PERSON_ID)).thenReturn(deleted);
+        when(boxRepositoryMock.findOne(PERSON_ID)).thenReturn(deleted);
         
         Box returned = personService.delete(PERSON_ID);
         
-        verify(personRepositoryMock, times(1)).findOne(PERSON_ID);
-        verify(personRepositoryMock, times(1)).delete(deleted);
-        verifyNoMoreInteractions(personRepositoryMock);
+        verify(boxRepositoryMock, times(1)).findOne(PERSON_ID);
+        verify(boxRepositoryMock, times(1)).delete(deleted);
+        verifyNoMoreInteractions(boxRepositoryMock);
         
         assertEquals(deleted, returned);
     }
     
-    @Test(expected = PersonNotFoundException.class)
-    public void deleteWhenPersonIsNotFound() throws PersonNotFoundException {
-        when(personRepositoryMock.findOne(PERSON_ID)).thenReturn(null);
+    @Test(expected = BoxNotFoundException.class)
+    public void deleteWhenPersonIsNotFound() throws BoxNotFoundException {
+        when(boxRepositoryMock.findOne(PERSON_ID)).thenReturn(null);
         
         personService.delete(PERSON_ID);
         
-        verify(personRepositoryMock, times(1)).findOne(PERSON_ID);
-        verifyNoMoreInteractions(personRepositoryMock);
+        verify(boxRepositoryMock, times(1)).findOne(PERSON_ID);
+        verifyNoMoreInteractions(boxRepositoryMock);
     }
     
     @Test
     public void findAll() {
         List<Box> boxes = new ArrayList<Box>();
-        when(personRepositoryMock.findAll()).thenReturn(boxes);
+        when(boxRepositoryMock.findAll()).thenReturn(boxes);
         
         List<Box> returned = personService.findAll();
         
-        verify(personRepositoryMock, times(1)).findAll();
-        verifyNoMoreInteractions(personRepositoryMock);
+        verify(boxRepositoryMock, times(1)).findAll();
+        verifyNoMoreInteractions(boxRepositoryMock);
         
         assertEquals(boxes, returned);
     }
@@ -91,41 +91,41 @@ public class RepositoryBoxServiceTest {
     @Test
     public void findById() {
         Box box = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
-        when(personRepositoryMock.findOne(PERSON_ID)).thenReturn(box);
+        when(boxRepositoryMock.findOne(PERSON_ID)).thenReturn(box);
         
         Box returned = personService.findById(PERSON_ID);
         
-        verify(personRepositoryMock, times(1)).findOne(PERSON_ID);
-        verifyNoMoreInteractions(personRepositoryMock);
+        verify(boxRepositoryMock, times(1)).findOne(PERSON_ID);
+        verifyNoMoreInteractions(boxRepositoryMock);
         
         assertEquals(box, returned);
     }
     
     @Test
-    public void update() throws PersonNotFoundException {
+    public void update() throws BoxNotFoundException {
         BoxDTO updated = PersonTestUtil.createDTO(PERSON_ID, FIRST_NAME_UPDATED, LAST_NAME_UPDATED);
         Box box = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
         
-        when(personRepositoryMock.findOne(updated.getId())).thenReturn(box);
+        when(boxRepositoryMock.findOne(updated.getId())).thenReturn(box);
         
         Box returned = personService.update(updated);
         
-        verify(personRepositoryMock, times(1)).findOne(updated.getId());
-        verifyNoMoreInteractions(personRepositoryMock);
+        verify(boxRepositoryMock, times(1)).findOne(updated.getId());
+        verifyNoMoreInteractions(boxRepositoryMock);
         
         assertPerson(updated, returned);
     }
     
-    @Test(expected = PersonNotFoundException.class)
-    public void updateWhenPersonIsNotFound() throws PersonNotFoundException {
+    @Test(expected = BoxNotFoundException.class)
+    public void updateWhenPersonIsNotFound() throws BoxNotFoundException {
         BoxDTO updated = PersonTestUtil.createDTO(PERSON_ID, FIRST_NAME_UPDATED, LAST_NAME_UPDATED);
         
-        when(personRepositoryMock.findOne(updated.getId())).thenReturn(null);
+        when(boxRepositoryMock.findOne(updated.getId())).thenReturn(null);
 
         personService.update(updated);
 
-        verify(personRepositoryMock, times(1)).findOne(updated.getId());
-        verifyNoMoreInteractions(personRepositoryMock);
+        verify(boxRepositoryMock, times(1)).findOne(updated.getId());
+        verifyNoMoreInteractions(boxRepositoryMock);
     }
 
     private void assertPerson(BoxDTO expected, Box actual) {

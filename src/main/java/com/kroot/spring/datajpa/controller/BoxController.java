@@ -2,8 +2,8 @@ package com.kroot.spring.datajpa.controller;
 
 import com.kroot.spring.datajpa.dto.BoxDTO;
 import com.kroot.spring.datajpa.model.Box;
-import com.kroot.spring.datajpa.service.PersonNotFoundException;
-import com.kroot.spring.datajpa.service.PersonService;
+import com.kroot.spring.datajpa.service.BoxNotFoundException;
+import com.kroot.spring.datajpa.service.BoxService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -39,7 +39,7 @@ public class BoxController extends AbstractController {
     protected static final String REQUEST_MAPPING_LIST = "/";
     
     @Resource
-    private PersonService personService;
+    private BoxService boxService;
 
     /**
      * Processes delete person requests.
@@ -52,9 +52,9 @@ public class BoxController extends AbstractController {
         LOGGER.debug("Deleting person with id: " + id);
 
         try {
-            Box deleted = personService.delete(id);
+            Box deleted = boxService.delete(id);
             addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_PERSON_DELETED, deleted.getName());
-        } catch (PersonNotFoundException e) {
+        } catch (BoxNotFoundException e) {
             LOGGER.debug("No person found with id: " + id);
             addErrorMessage(attributes, ERROR_MESSAGE_KEY_DELETED_PERSON_WAS_NOT_FOUND);
         }
@@ -91,7 +91,7 @@ public class BoxController extends AbstractController {
             return PERSON_ADD_FORM_VIEW;
         }
                 
-        Box box = personService.create(created);
+        Box box = boxService.create(created);
 
         addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_PERSON_CREATED, box.getName());
 
@@ -109,7 +109,7 @@ public class BoxController extends AbstractController {
     public String showEditPersonForm(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
         LOGGER.debug("Rendering edit box form for box with id: " + id);
         
-        Box box = personService.findById(id);
+        Box box = boxService.findById(id);
         if (box == null) {
             LOGGER.debug("No box found with id: " + id);
             addErrorMessage(attributes, ERROR_MESSAGE_KEY_EDITED_PERSON_WAS_NOT_FOUND);
@@ -138,9 +138,9 @@ public class BoxController extends AbstractController {
         }
         
         try {
-            Box box = personService.update(updated);
+            Box box = boxService.update(updated);
             addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_PERSON_EDITED, box.getName());
-        } catch (PersonNotFoundException e) {
+        } catch (BoxNotFoundException e) {
             LOGGER.debug("No person was found with id: " + updated.getId());
             addErrorMessage(attributes, ERROR_MESSAGE_KEY_EDITED_PERSON_WAS_NOT_FOUND);
         }
@@ -167,7 +167,7 @@ public class BoxController extends AbstractController {
     public String showList(Model model) {
         LOGGER.debug("Rendering person list page");
 
-        List<Box> boxes = personService.findAll();
+        List<Box> boxes = boxService.findAll();
         model.addAttribute(MODEL_ATTRIBUTE_PERSONS, boxes);
 
         return PERSON_LIST_VIEW;
@@ -175,9 +175,9 @@ public class BoxController extends AbstractController {
 
     /**
      * This setter method should only be used by unit tests
-     * @param personService
+     * @param boxService
      */
-    protected void setPersonService(PersonService personService) {
-        this.personService = personService;
+    protected void setBoxService(BoxService boxService) {
+        this.boxService = boxService;
     }
 }
