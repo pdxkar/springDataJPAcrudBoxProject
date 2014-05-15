@@ -1,7 +1,7 @@
 package com.kroot.spring.datajpa.service;
 
-import com.kroot.spring.datajpa.dto.PersonDTO;
-import com.kroot.spring.datajpa.model.Person;
+import com.kroot.spring.datajpa.dto.BoxDTO;
+import com.kroot.spring.datajpa.model.Box;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface PersonService {
      * @param created   The information of the created person.
      * @return  The created person.
      */
-    public Person create(PersonDTO created);
+    public Box create(BoxDTO created);
 
     /**
      * Deletes a person.
@@ -24,20 +24,20 @@ public interface PersonService {
      * @return  The deleted person.
      * @throws PersonNotFoundException  if no person is found with the given id.
      */
-    public Person delete(Long personId) throws PersonNotFoundException;
+    public Box delete(Long personId) throws PersonNotFoundException;
 
     /**
      * Finds all persons.
      * @return  A list of persons.
      */
-    public List<Person> findAll();
+    public List<Box> findAll();
 
     /**
      * Finds person by id.
      * @param id    The id of the wanted person.
      * @return  The found person. If no person is found, this method returns null.
      */
-    public Person findById(Long id);
+    public Box findById(Long id);
 
     /**
      * Updates the information of a person.
@@ -45,5 +45,5 @@ public interface PersonService {
      * @return  The updated person.
      * @throws PersonNotFoundException  if no person is found with given id.
      */
-    public Person update(PersonDTO updated) throws PersonNotFoundException;
+    public Box update(BoxDTO updated) throws PersonNotFoundException;
 }

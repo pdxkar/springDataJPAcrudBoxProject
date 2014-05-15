@@ -1,7 +1,7 @@
 package com.kroot.spring.datajpa.service;
 
-import com.kroot.spring.datajpa.dto.PersonDTO;
-import com.kroot.spring.datajpa.model.Person;
+import com.kroot.spring.datajpa.dto.BoxDTO;
+import com.kroot.spring.datajpa.model.Box;
 import com.kroot.spring.datajpa.model.PersonTestUtil;
 import com.kroot.spring.datajpa.repository.PersonRepository;
 import org.junit.Before;
@@ -14,7 +14,7 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class RepositoryPersonServiceTest {
+public class RepositoryBoxServiceTest {
 
     private static final Long PERSON_ID = Long.valueOf(5);
     private static final String FIRST_NAME = "Foo";
@@ -36,14 +36,14 @@ public class RepositoryPersonServiceTest {
     
     @Test
     public void create() {
-        PersonDTO created = PersonTestUtil.createDTO(null, FIRST_NAME, LAST_NAME);
-        Person persisted = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
+        BoxDTO created = PersonTestUtil.createDTO(null, FIRST_NAME, LAST_NAME);
+        Box persisted = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
         
-        when(personRepositoryMock.save(any(Person.class))).thenReturn(persisted);
+        when(personRepositoryMock.save(any(Box.class))).thenReturn(persisted);
         
-        Person returned = personService.create(created);
+        Box returned = personService.create(created);
 
-        ArgumentCaptor<Person> personArgument = ArgumentCaptor.forClass(Person.class);
+        ArgumentCaptor<Box> personArgument = ArgumentCaptor.forClass(Box.class);
         verify(personRepositoryMock, times(1)).save(personArgument.capture());
         verifyNoMoreInteractions(personRepositoryMock);
 
@@ -53,10 +53,10 @@ public class RepositoryPersonServiceTest {
     
     @Test
     public void delete() throws PersonNotFoundException {
-        Person deleted = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
+        Box deleted = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
         when(personRepositoryMock.findOne(PERSON_ID)).thenReturn(deleted);
         
-        Person returned = personService.delete(PERSON_ID);
+        Box returned = personService.delete(PERSON_ID);
         
         verify(personRepositoryMock, times(1)).findOne(PERSON_ID);
         verify(personRepositoryMock, times(1)).delete(deleted);
@@ -77,38 +77,38 @@ public class RepositoryPersonServiceTest {
     
     @Test
     public void findAll() {
-        List<Person> persons = new ArrayList<Person>();
-        when(personRepositoryMock.findAll()).thenReturn(persons);
+        List<Box> boxes = new ArrayList<Box>();
+        when(personRepositoryMock.findAll()).thenReturn(boxes);
         
-        List<Person> returned = personService.findAll();
+        List<Box> returned = personService.findAll();
         
         verify(personRepositoryMock, times(1)).findAll();
         verifyNoMoreInteractions(personRepositoryMock);
         
-        assertEquals(persons, returned);
+        assertEquals(boxes, returned);
     }
     
     @Test
     public void findById() {
-        Person person = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
-        when(personRepositoryMock.findOne(PERSON_ID)).thenReturn(person);
+        Box box = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
+        when(personRepositoryMock.findOne(PERSON_ID)).thenReturn(box);
         
-        Person returned = personService.findById(PERSON_ID);
+        Box returned = personService.findById(PERSON_ID);
         
         verify(personRepositoryMock, times(1)).findOne(PERSON_ID);
         verifyNoMoreInteractions(personRepositoryMock);
         
-        assertEquals(person, returned);
+        assertEquals(box, returned);
     }
     
     @Test
     public void update() throws PersonNotFoundException {
-        PersonDTO updated = PersonTestUtil.createDTO(PERSON_ID, FIRST_NAME_UPDATED, LAST_NAME_UPDATED);
-        Person person = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
+        BoxDTO updated = PersonTestUtil.createDTO(PERSON_ID, FIRST_NAME_UPDATED, LAST_NAME_UPDATED);
+        Box box = PersonTestUtil.createModelObject(PERSON_ID, FIRST_NAME, LAST_NAME);
         
-        when(personRepositoryMock.findOne(updated.getId())).thenReturn(person);
+        when(personRepositoryMock.findOne(updated.getId())).thenReturn(box);
         
-        Person returned = personService.update(updated);
+        Box returned = personService.update(updated);
         
         verify(personRepositoryMock, times(1)).findOne(updated.getId());
         verifyNoMoreInteractions(personRepositoryMock);
@@ -118,7 +118,7 @@ public class RepositoryPersonServiceTest {
     
     @Test(expected = PersonNotFoundException.class)
     public void updateWhenPersonIsNotFound() throws PersonNotFoundException {
-        PersonDTO updated = PersonTestUtil.createDTO(PERSON_ID, FIRST_NAME_UPDATED, LAST_NAME_UPDATED);
+        BoxDTO updated = PersonTestUtil.createDTO(PERSON_ID, FIRST_NAME_UPDATED, LAST_NAME_UPDATED);
         
         when(personRepositoryMock.findOne(updated.getId())).thenReturn(null);
 
@@ -128,7 +128,7 @@ public class RepositoryPersonServiceTest {
         verifyNoMoreInteractions(personRepositoryMock);
     }
 
-    private void assertPerson(PersonDTO expected, Person actual) {
+    private void assertPerson(BoxDTO expected, Box actual) {
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getFirstName(), actual.getFirstName());
         assertEquals(expected.getLastName(), expected.getLastName());

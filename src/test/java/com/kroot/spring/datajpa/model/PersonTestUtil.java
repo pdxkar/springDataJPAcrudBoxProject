@@ -1,6 +1,6 @@
 package com.kroot.spring.datajpa.model;
 
-import com.kroot.spring.datajpa.dto.PersonDTO;
+import com.kroot.spring.datajpa.dto.BoxDTO;
 
 /**
  * An utility class which contains useful methods for unit testing person related
@@ -8,8 +8,8 @@ import com.kroot.spring.datajpa.dto.PersonDTO;
  */
 public class PersonTestUtil {
 
-    public static PersonDTO createDTO(Long id, String firstName, String lastName) {
-        PersonDTO dto = new PersonDTO();
+    public static BoxDTO createDTO(Long id, String firstName, String lastName) {
+        BoxDTO dto = new BoxDTO();
 
         dto.setId(id);
         dto.setFirstName(firstName);
@@ -18,8 +18,8 @@ public class PersonTestUtil {
         return dto;
     }
 
-    public static Person createModelObject(Long id, String firstName, String lastName) {
-        Person model = Person.getBuilder(firstName, lastName).build();
+    public static Box createModelObject(Long id, String firstName, String lastName) {
+        Box model = Box.getBuilder(firstName, lastName).build();
 
         model.setId(id);
 

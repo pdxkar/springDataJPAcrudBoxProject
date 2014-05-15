@@ -1,7 +1,7 @@
 package com.kroot.spring.datajpa.controller;
 
-import com.kroot.spring.datajpa.dto.PersonDTO;
-import com.kroot.spring.datajpa.model.Person;
+import com.kroot.spring.datajpa.dto.BoxDTO;
+import com.kroot.spring.datajpa.model.Box;
 import com.kroot.spring.datajpa.service.PersonNotFoundException;
 import com.kroot.spring.datajpa.service.PersonService;
 import org.slf4j.Logger;
@@ -18,9 +18,9 @@ import java.util.List;
 
 @Controller
 @SessionAttributes("person")
-public class PersonController extends AbstractController {
+public class BoxController extends AbstractController {
     
-    private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BoxController.class);
     
     protected static final String ERROR_MESSAGE_KEY_DELETED_PERSON_WAS_NOT_FOUND = "error.message.deleted.not.found";
     protected static final String ERROR_MESSAGE_KEY_EDITED_PERSON_WAS_NOT_FOUND = "error.message.edited.not.found";
@@ -52,7 +52,7 @@ public class PersonController extends AbstractController {
         LOGGER.debug("Deleting person with id: " + id);
 
         try {
-            Person deleted = personService.delete(id);
+            Box deleted = personService.delete(id);
             addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_PERSON_DELETED, deleted.getName());
         } catch (PersonNotFoundException e) {
             LOGGER.debug("No person found with id: " + id);
@@ -71,7 +71,7 @@ public class PersonController extends AbstractController {
     public String showCreatePersonForm(Model model) {
         LOGGER.debug("Rendering create person form");
         
-        model.addAttribute(MODEL_ATTIRUTE_PERSON, new PersonDTO());
+        model.addAttribute(MODEL_ATTIRUTE_PERSON, new BoxDTO());
 
         return PERSON_ADD_FORM_VIEW;
     }
@@ -84,16 +84,16 @@ public class PersonController extends AbstractController {
      * @return
      */
     @RequestMapping(value = "/person/create", method = RequestMethod.POST)
-    public String submitCreatePersonForm(@Valid @ModelAttribute(MODEL_ATTIRUTE_PERSON) PersonDTO created, BindingResult bindingResult, RedirectAttributes attributes) {
-        LOGGER.debug("Create person form was submitted with information: " + created);
+    public String submitCreatePersonForm(@Valid @ModelAttribute(MODEL_ATTIRUTE_PERSON) BoxDTO created, BindingResult bindingResult, RedirectAttributes attributes) {
+        LOGGER.debug("Create box form was submitted with information: " + created);
 
         if (bindingResult.hasErrors()) {
             return PERSON_ADD_FORM_VIEW;
         }
                 
-        Person person = personService.create(created);
+        Box box = personService.create(created);
 
-        addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_PERSON_CREATED, person.getName());
+        addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_PERSON_CREATED, box.getName());
 
         return createRedirectViewPath(REQUEST_MAPPING_LIST);
     }
@@ -107,16 +107,16 @@ public class PersonController extends AbstractController {
      */
     @RequestMapping(value = "/person/edit/{id}", method = RequestMethod.GET)
     public String showEditPersonForm(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        LOGGER.debug("Rendering edit person form for person with id: " + id);
+        LOGGER.debug("Rendering edit box form for box with id: " + id);
         
-        Person person = personService.findById(id);
-        if (person == null) {
-            LOGGER.debug("No person found with id: " + id);
+        Box box = personService.findById(id);
+        if (box == null) {
+            LOGGER.debug("No box found with id: " + id);
             addErrorMessage(attributes, ERROR_MESSAGE_KEY_EDITED_PERSON_WAS_NOT_FOUND);
             return createRedirectViewPath(REQUEST_MAPPING_LIST);            
         }
 
-        model.addAttribute(MODEL_ATTIRUTE_PERSON, constructFormObject(person));
+        model.addAttribute(MODEL_ATTIRUTE_PERSON, constructFormObject(box));
         
         return PERSON_EDIT_FORM_VIEW;
     }
@@ -129,7 +129,7 @@ public class PersonController extends AbstractController {
      * @return
      */
     @RequestMapping(value = "/person/edit", method = RequestMethod.POST)
-    public String submitEditPersonForm(@Valid @ModelAttribute(MODEL_ATTIRUTE_PERSON) PersonDTO updated, BindingResult bindingResult, RedirectAttributes attributes) {
+    public String submitEditPersonForm(@Valid @ModelAttribute(MODEL_ATTIRUTE_PERSON) BoxDTO updated, BindingResult bindingResult, RedirectAttributes attributes) {
         LOGGER.debug("Edit person form was submitted with information: " + updated);
         
         if (bindingResult.hasErrors()) {
@@ -138,8 +138,8 @@ public class PersonController extends AbstractController {
         }
         
         try {
-            Person person = personService.update(updated);
-            addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_PERSON_EDITED, person.getName());
+            Box box = personService.update(updated);
+            addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_PERSON_EDITED, box.getName());
         } catch (PersonNotFoundException e) {
             LOGGER.debug("No person was found with id: " + updated.getId());
             addErrorMessage(attributes, ERROR_MESSAGE_KEY_EDITED_PERSON_WAS_NOT_FOUND);
@@ -148,12 +148,12 @@ public class PersonController extends AbstractController {
         return createRedirectViewPath(REQUEST_MAPPING_LIST);
     }
     
-    private PersonDTO constructFormObject(Person person) {
-        PersonDTO formObject = new PersonDTO();
+    private BoxDTO constructFormObject(Box box) {
+        BoxDTO formObject = new BoxDTO();
         
-        formObject.setId(person.getId());
-        formObject.setFirstName(person.getFirstName());
-        formObject.setLastName(person.getLastName());
+        formObject.setId(box.getId());
+        formObject.setFirstName(box.getFirstName());
+        formObject.setLastName(box.getLastName());
         
         return formObject;
     }
@@ -167,8 +167,8 @@ public class PersonController extends AbstractController {
     public String showList(Model model) {
         LOGGER.debug("Rendering person list page");
 
-        List<Person> persons = personService.findAll();
-        model.addAttribute(MODEL_ATTRIBUTE_PERSONS, persons);
+        List<Box> boxes = personService.findAll();
+        model.addAttribute(MODEL_ATTRIBUTE_PERSONS, boxes);
 
         return PERSON_LIST_VIEW;
     }

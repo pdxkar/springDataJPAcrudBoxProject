@@ -10,7 +10,7 @@ import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-public class PersonTest {
+public class BoxTest {
 
     private static final String FIRST_NAME = "Foo";
     private static final String FIRST_NAME_UPDATED = "Foo1";
@@ -19,7 +19,7 @@ public class PersonTest {
 
     @Test
     public void build() {
-        Person built = Person.getBuilder(FIRST_NAME, LAST_NAME).build();
+        Box built = Box.getBuilder(FIRST_NAME, LAST_NAME).build();
         
         assertEquals(FIRST_NAME, built.getFirstName());
         assertEquals(LAST_NAME, built.getLastName());
@@ -32,7 +32,7 @@ public class PersonTest {
     
     @Test
     public void getName() {
-        Person built = Person.getBuilder(FIRST_NAME, LAST_NAME).build();
+        Box built = Box.getBuilder(FIRST_NAME, LAST_NAME).build();
         
         String expectedName = constructName(FIRST_NAME, LAST_NAME);
         assertEquals(expectedName, built.getName());
@@ -50,7 +50,7 @@ public class PersonTest {
     
     @Test
     public void prePersist() {
-        Person built = Person.getBuilder(FIRST_NAME, LAST_NAME).build();
+        Box built = Box.getBuilder(FIRST_NAME, LAST_NAME).build();
         built.prePersist();
         
         Date creationTime = built.getCreationTime();
@@ -63,7 +63,7 @@ public class PersonTest {
     
     @Test
     public void preUpdate() {
-        Person built = Person.getBuilder(FIRST_NAME, LAST_NAME).build();
+        Box built = Box.getBuilder(FIRST_NAME, LAST_NAME).build();
         built.prePersist();
         
         try {
@@ -84,7 +84,7 @@ public class PersonTest {
     
     @Test
     public void update() {
-        Person built = Person.getBuilder(FIRST_NAME, LAST_NAME).build();
+        Box built = Box.getBuilder(FIRST_NAME, LAST_NAME).build();
         built.update(FIRST_NAME_UPDATED, LAST_NAME_UPDATED);
         
         assertEquals(FIRST_NAME_UPDATED, built.getFirstName());

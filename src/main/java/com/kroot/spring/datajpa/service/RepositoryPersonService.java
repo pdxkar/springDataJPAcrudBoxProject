@@ -1,7 +1,7 @@
 package com.kroot.spring.datajpa.service;
 
-import com.kroot.spring.datajpa.dto.PersonDTO;
-import com.kroot.spring.datajpa.model.Person;
+import com.kroot.spring.datajpa.dto.BoxDTO;
+import com.kroot.spring.datajpa.model.Box;
 import com.kroot.spring.datajpa.repository.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,20 +21,20 @@ public class RepositoryPersonService implements PersonService {
 
     @Transactional
     @Override
-    public Person create(PersonDTO created) {
-        LOGGER.debug("Creating a new person with information: " + created);
+    public Box create(BoxDTO created) {
+        LOGGER.debug("Creating a new box with information: " + created);
         
-        Person person = Person.getBuilder(created.getFirstName(), created.getLastName()).build();
+        Box box = Box.getBuilder(created.getFirstName(), created.getLastName()).build();
         
-        return personRepository.save(person);
+        return personRepository.save(box);
     }
 
     @Transactional(rollbackFor = PersonNotFoundException.class)
     @Override
-    public Person delete(Long personId) throws PersonNotFoundException {
+    public Box delete(Long personId) throws PersonNotFoundException {
         LOGGER.debug("Deleting person with id: " + personId);
         
-        Person deleted = personRepository.findOne(personId);
+        Box deleted = personRepository.findOne(personId);
         
         if (deleted == null) {
             LOGGER.debug("No person found with id: " + personId);
@@ -47,33 +47,33 @@ public class RepositoryPersonService implements PersonService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Person> findAll() {
+    public List<Box> findAll() {
         LOGGER.debug("Finding all persons");
         return personRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Person findById(Long id) {
+    public Box findById(Long id) {
         LOGGER.debug("Finding person by id: " + id);
         return personRepository.findOne(id);
     }
 
     @Transactional(rollbackFor = PersonNotFoundException.class)
     @Override
-    public Person update(PersonDTO updated) throws PersonNotFoundException {
-        LOGGER.debug("Updating person with information: " + updated);
+    public Box update(BoxDTO updated) throws PersonNotFoundException {
+        LOGGER.debug("Updating box with information: " + updated);
         
-        Person person = personRepository.findOne(updated.getId());
+        Box box = personRepository.findOne(updated.getId());
         
-        if (person == null) {
-            LOGGER.debug("No person found with id: " + updated.getId());
+        if (box == null) {
+            LOGGER.debug("No box found with id: " + updated.getId());
             throw new PersonNotFoundException();
         }
         
-        person.update(updated.getFirstName(), updated.getLastName());
+        box.update(updated.getFirstName(), updated.getLastName());
 
-        return person;
+        return box;
     }
 
     /**

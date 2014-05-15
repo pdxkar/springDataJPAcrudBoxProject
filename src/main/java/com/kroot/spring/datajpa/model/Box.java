@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "persons")
-public class Person {
+public class Box {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,7 +37,7 @@ public class Person {
     }
 
     /**
-     * Gets a builder which is used to create Person objects.
+     * Gets a builder which is used to create Box objects.
      * @param firstName The first name of the created user.
      * @param lastName  The last name of the created user.
      * @return  A new Builder instance.
@@ -104,27 +104,27 @@ public class Person {
     }
 
     /**
-     * A Builder class used to create new Person objects.
+     * A Builder class used to create new Box objects.
      */
     public static class Builder {
-        Person built;
+        Box built;
 
         /**
          * Creates a new Builder instance.
-         * @param firstName The first name of the created Person object.
-         * @param lastName  The last name of the created Person object.
+         * @param firstName The first name of the created Box object.
+         * @param lastName  The last name of the created Box object.
          */
         Builder(String firstName, String lastName) {
-            built = new Person();
+            built = new Box();
             built.firstName = firstName;
             built.lastName = lastName;
         }
 
         /**
-         * Builds the new Person object.
-         * @return  The created Person object.
+         * Builds the new Box object.
+         * @return  The created Box object.
          */
-        public Person build() {
+        public Box build() {
             return built;
         }
     }

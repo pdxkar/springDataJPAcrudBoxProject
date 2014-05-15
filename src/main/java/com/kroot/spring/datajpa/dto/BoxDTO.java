@@ -3,7 +3,7 @@ package com.kroot.spring.datajpa.dto;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class PersonDTO {
+public class BoxDTO {
     
     private Long id;
 
@@ -13,7 +13,7 @@ public class PersonDTO {
     @NotEmpty
     private String lastName;
 
-    public PersonDTO() {
+    public BoxDTO() {
 
     }
 
