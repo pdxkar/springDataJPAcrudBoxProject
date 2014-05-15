@@ -7,10 +7,10 @@ import java.util.Date;
 
 /**
  * An entity class which contains the information of a single box.
- * @author Petri Kainulainen
  */
 @Entity
-@Table(name = "boxes")
+/*@Table(name = "boxes")*/
+@Table(name = "person")
 public class Box {
     
     @Id
@@ -28,9 +28,6 @@ public class Box {
     
     @Column(name = "modification_time", nullable = false)
     private Date modificationTime;
-    
-    @Version
-    private long version = 0;
 
     public Long getId() {
         return id;
@@ -75,10 +72,6 @@ public class Box {
 
     public Date getModificationTime() {
         return modificationTime;
-    }
-
-    public long getVersion() {
-        return version;
     }
 
     public void update(String firstName, String lastName) {

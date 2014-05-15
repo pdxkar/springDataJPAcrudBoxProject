@@ -23,7 +23,6 @@ public class BoxTest {
 
         assertEquals(FIRST_NAME, built.getFirstName());
         assertEquals(LAST_NAME, built.getLastName());
-        assertEquals(0, built.getVersion());
 
         assertNull(built.getCreationTime());
         assertNull(built.getModificationTime());
