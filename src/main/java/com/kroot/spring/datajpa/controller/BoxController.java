@@ -53,7 +53,7 @@ public class BoxController extends AbstractController {
 
         try {
             Box deleted = boxService.delete(id);
-            addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_BOX_DELETED, deleted.getName());
+            addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_BOX_DELETED, deleted.getBoxAndAttribute());
         } catch (BoxNotFoundException e) {
             LOGGER.debug("No box found with id: " + id);
             addErrorMessage(attributes, ERROR_MESSAGE_KEY_DELETED_BOX_WAS_NOT_FOUND);
@@ -93,7 +93,7 @@ public class BoxController extends AbstractController {
                 
         Box box = boxService.create(created);
 
-        addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_BOX_CREATED, box.getName());
+        addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_BOX_CREATED, box.getBoxAndAttribute());
 
         return createRedirectViewPath(REQUEST_MAPPING_LIST);
     }
@@ -139,7 +139,7 @@ public class BoxController extends AbstractController {
         
         try {
             Box box = boxService.update(updated);
-            addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_BOX_EDITED, box.getName());
+            addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_BOX_EDITED, box.getBoxAndAttribute());
         } catch (BoxNotFoundException e) {
             LOGGER.debug("No box was found with id: " + updated.getId());
             addErrorMessage(attributes, ERROR_MESSAGE_KEY_EDITED_BOX_WAS_NOT_FOUND);
@@ -152,8 +152,8 @@ public class BoxController extends AbstractController {
         BoxDTO formObject = new BoxDTO();
         
         formObject.setId(box.getId());
-        formObject.setFirstName(box.getFirstName());
-        formObject.setLastName(box.getLastName());
+        formObject.setBoxType(box.getBoxType());
+        formObject.setAttribute(box.getAttribute());
         
         return formObject;
     }

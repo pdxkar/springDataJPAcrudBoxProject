@@ -12,14 +12,14 @@
     <div>
         <form:form action="/box/create" commandName="box" method="POST">
             <div>
-                <form:label path="firstName"><spring:message code="box.label.firstName"/>:</form:label>
-                <form:input path="firstName" size="20"/>
-                <form:errors path="firstName" cssClass="error" element="div"/>
+                <form:label path="boxType"><spring:message code="box.label.boxType"/>:</form:label>
+                <form:input path="boxType" size="20"/>
+                <form:errors path="boxType" cssClass="error" element="div"/>
             </div>
             <div>
-                <form:label path="lastName"><spring:message code="box.label.lastName"/>:</form:label>
-                <form:input path="lastName" size="20"/>
-                <form:errors path="lastName" cssClass="error" element="div"/>
+                <form:label path="attribute"><spring:message code="box.label.attribute"/>:</form:label>
+                <form:input path="attribute" size="20"/>
+                <form:errors path="attribute" cssClass="error" element="div"/>
             </div>
             <div>
                 <input type="submit" value="<spring:message code="box.create.page.submit.label"/>"/>

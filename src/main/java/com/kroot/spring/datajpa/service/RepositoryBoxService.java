@@ -24,7 +24,7 @@ public class RepositoryBoxService implements BoxService {
     public Box create(BoxDTO created) {
         LOGGER.debug("Creating a new box with information: " + created);
         
-        Box box = Box.getBuilder(created.getFirstName(), created.getLastName()).build();
+        Box box = Box.getBuilder(created.getBoxType(), created.getAttribute()).build();
         
         return boxRepository.save(box);
     }
@@ -71,7 +71,7 @@ public class RepositoryBoxService implements BoxService {
             throw new BoxNotFoundException();
         }
         
-        box.update(updated.getFirstName(), updated.getLastName());
+        box.update(updated.getBoxType(), updated.getAttribute());
 
         return box;
     }

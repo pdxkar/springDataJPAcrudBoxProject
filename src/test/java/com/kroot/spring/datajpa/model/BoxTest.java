@@ -21,11 +21,11 @@ public class BoxTest {
     public void build() {
         Box built = Box.getBuilder(FIRST_NAME, LAST_NAME).build();
 
-        assertEquals(FIRST_NAME, built.getFirstName());
-        assertEquals(LAST_NAME, built.getLastName());
+        assertEquals(FIRST_NAME, built.getBoxType());
+        assertEquals(LAST_NAME, built.getAttribute());
 
-        assertNull(built.getCreationTime());
-        assertNull(built.getModificationTime());
+/*        assertNull(built.getCreationTime());
+        assertNull(built.getModificationTime());*/
         assertNull(built.getId());
     }
 
@@ -34,7 +34,7 @@ public class BoxTest {
         Box built = Box.getBuilder(FIRST_NAME, LAST_NAME).build();
 
         String expectedName = constructName(FIRST_NAME, LAST_NAME);
-        assertEquals(expectedName, built.getName());
+        assertEquals(expectedName, built.getBoxAndAttribute());
     }
 
     private String constructName(String firstName, String lastName) {
@@ -50,20 +50,20 @@ public class BoxTest {
     @Test
     public void prePersist() {
         Box built = Box.getBuilder(FIRST_NAME, LAST_NAME).build();
-        built.prePersist();
+/*        built.prePersist();*/
 
-        Date creationTime = built.getCreationTime();
-        Date modificationTime = built.getModificationTime();
+/*        Date creationTime = built.getCreationTime();
+        Date modificationTime = built.getModificationTime();*/
 
-        assertNotNull(creationTime);
+/*        assertNotNull(creationTime);
         assertNotNull(modificationTime);
-        assertEquals(creationTime, modificationTime);
+        assertEquals(creationTime, modificationTime);*/
     }
 
     @Test
     public void preUpdate() {
         Box built = Box.getBuilder(FIRST_NAME, LAST_NAME).build();
-        built.prePersist();
+ /*       built.prePersist();*/
 
         try {
             Thread.sleep(1000);
@@ -71,14 +71,6 @@ public class BoxTest {
             //Back to work
         }
 
-        built.preUpdate();
-
-        Date creationTime = built.getCreationTime();
-        Date modificationTime = built.getModificationTime();
-
-        assertNotNull(creationTime);
-        assertNotNull(modificationTime);
-        assertTrue(modificationTime.after(creationTime));
     }
 
     @Test
@@ -86,7 +78,7 @@ public class BoxTest {
         Box built = Box.getBuilder(FIRST_NAME, LAST_NAME).build();
         built.update(FIRST_NAME_UPDATED, LAST_NAME_UPDATED);
 
-        assertEquals(FIRST_NAME_UPDATED, built.getFirstName());
-        assertEquals(LAST_NAME_UPDATED, built.getLastName());
+        assertEquals(FIRST_NAME_UPDATED, built.getBoxType());
+        assertEquals(LAST_NAME_UPDATED, built.getAttribute());
     }
 }

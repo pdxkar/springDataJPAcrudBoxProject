@@ -92,8 +92,8 @@ public class BoxControllerTest extends AbstractTestController {
         assertNotNull(added);
 
         assertNull(added.getId());
-        assertNull(added.getFirstName());
-        assertNull(added.getLastName());
+        assertNull(added.getBoxType());
+        assertNull(added.getAttribute());
     }
 
     @Test
@@ -193,8 +193,8 @@ public class BoxControllerTest extends AbstractTestController {
 
         assertNotNull(formObject);
         assertEquals(box.getId(), formObject.getId());
-        assertEquals(box.getFirstName(), formObject.getFirstName());
-        assertEquals(box.getLastName(), formObject.getLastName());
+        assertEquals(box.getBoxType(), formObject.getBoxType());
+        assertEquals(box.getAttribute(), formObject.getAttribute());
     }
 
     @Test
@@ -240,8 +240,8 @@ public class BoxControllerTest extends AbstractTestController {
 
         assertFeedbackMessage(attributes, BoxController.FEEDBACK_MESSAGE_KEY_BOX_EDITED);
 
-        assertEquals(updated.getFirstName(), box.getFirstName());
-        assertEquals(updated.getLastName(), box.getLastName());
+        assertEquals(updated.getBoxType(), box.getBoxType());
+        assertEquals(updated.getAttribute(), box.getAttribute());
     }
 
     @Test

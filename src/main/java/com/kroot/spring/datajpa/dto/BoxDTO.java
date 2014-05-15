@@ -8,10 +8,10 @@ public class BoxDTO {
     private Long id;
 
     @NotEmpty
-    private String firstName;
+    private String boxType;
 
     @NotEmpty
-    private String lastName;
+    private String attribute;
 
     public BoxDTO() {
 
@@ -25,20 +25,20 @@ public class BoxDTO {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getBoxType() {
+        return boxType;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setBoxType(String boxType) {
+        this.boxType = boxType;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getAttribute() {
+        return attribute;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setAttribute(String attribute) {
+        this.attribute = attribute;
     }
 
     @Override

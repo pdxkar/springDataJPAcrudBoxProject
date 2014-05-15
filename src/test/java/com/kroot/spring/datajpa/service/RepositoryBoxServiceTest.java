@@ -130,8 +130,8 @@ public class RepositoryBoxServiceTest {
 
     private void assertPerson(BoxDTO expected, Box actual) {
         assertEquals(expected.getId(), actual.getId());
-        assertEquals(expected.getFirstName(), actual.getFirstName());
-        assertEquals(expected.getLastName(), expected.getLastName());
+        assertEquals(expected.getBoxType(), actual.getBoxType());
+        assertEquals(expected.getAttribute(), expected.getAttribute());
     }
 
 }

@@ -16,18 +16,12 @@ public class Box {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(name = "creation_time", nullable = false)
-    private Date creationTime;
-    
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
 
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-    
-    @Column(name = "modification_time", nullable = false)
-    private Date modificationTime;
+    @Column(name = "boxType", nullable = false)
+    private String boxType;
+
+    @Column(name = "attribute", nullable = false)
+    private String attribute;
 
     public Long getId() {
         return id;
@@ -35,62 +29,42 @@ public class Box {
 
     /**
      * Gets a builder which is used to create Box objects.
-     * @param firstName The first name of the created user.
-     * @param lastName  The last name of the created user.
+     * @param boxType The type of created box.
+     * @param attribute  The attribute of the created box.
      * @return  A new Builder instance.
      */
-    public static Builder getBuilder(String firstName, String lastName) {
-        return new Builder(firstName, lastName);
-    }
-    
-    public Date getCreationTime() {
-        return creationTime;
+    public static Builder getBuilder(String boxType, String attribute) {
+        return new Builder(boxType, attribute);
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getBoxType() {
+        return boxType;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getAttribute() {
+        return attribute;
     }
 
     /**
-     * Gets the full name of the box.
-     * @return  The full name of the box.
+     * Gets the box type and attribute.
+     * @return  The type and attribute of the box.
      */
     @Transient
-    public String getName() {
+    public String getBoxAndAttribute() {
         StringBuilder name = new StringBuilder();
         
-        name.append(firstName);
+        name.append(boxType);
         name.append(" ");
-        name.append(lastName);
+        name.append(attribute);
         
         return name.toString();
     }
 
-    public Date getModificationTime() {
-        return modificationTime;
-    }
-
-    public void update(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public void update(String boxType, String attribute) {
+        this.boxType = boxType;
+        this.attribute = attribute;
     }
     
-    @PreUpdate
-    public void preUpdate() {
-        modificationTime = new Date();
-    }
-    
-    @PrePersist
-    public void prePersist() {
-        Date now = new Date();
-        creationTime = now;
-        modificationTime = now;
-    }
-
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
@@ -104,13 +78,13 @@ public class Box {
 
         /**
          * Creates a new Builder instance.
-         * @param firstName The first name of the created Box object.
-         * @param lastName  The last name of the created Box object.
+         * @param boxType The type of the created Box object.
+         * @param attribute  The attribute the created Box object.
          */
-        Builder(String firstName, String lastName) {
+        Builder(String boxType, String attribute) {
             built = new Box();
-            built.firstName = firstName;
-            built.lastName = lastName;
+            built.boxType = boxType;
+            built.attribute = attribute;
         }
 
         /**
