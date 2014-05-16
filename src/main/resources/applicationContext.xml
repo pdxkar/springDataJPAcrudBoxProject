@@ -27,4 +27,6 @@
         Configures Spring Data JPA and sets the base package of my DAOs.
     -->
     <jpa:repositories base-package="com.kroot.spring.datajpa.repository"/>
+
+
 </beans>

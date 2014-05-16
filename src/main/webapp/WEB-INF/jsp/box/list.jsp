@@ -24,6 +24,7 @@
         <td><spring:message code="box.label.attribute"/></td>
     </tr>
     </thead>
+
     <tbody>
     <c:forEach items="${boxes}" var="box">
         <tr>
@@ -33,7 +34,18 @@
             <td><a href="/box/delete/<c:out value="${box.id}"/>"><spring:message code="box.delete.link.label"/></a></td>
         </tr>
     </c:forEach>
+    <td>End of table</td>
     </tbody>
+    <tbody>
+    <td>this is a test</td>
+        <c:forEach items="${attributes}" var="attribute">
+            <tr>
+            <td>placeholder</td>
+                <td><c:out value="${attribute.attribute}"/></td>
+            </tr>
+        </c:forEach>
+    </tbody>
+
 </table>
 </body>
 </html>

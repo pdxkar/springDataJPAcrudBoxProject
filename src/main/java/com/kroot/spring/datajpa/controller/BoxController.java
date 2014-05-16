@@ -2,8 +2,10 @@ package com.kroot.spring.datajpa.controller;
 
 import com.kroot.spring.datajpa.dto.BoxDTO;
 import com.kroot.spring.datajpa.model.Box;
+import com.kroot.spring.datajpa.model.Attribute;
 import com.kroot.spring.datajpa.service.BoxNotFoundException;
 import com.kroot.spring.datajpa.service.BoxService;
+import com.kroot.spring.datajpa.service.AttributeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,9 @@ public class BoxController extends AbstractController {
     
     protected static final String MODEL_ATTIRUTE_BOX = "box";
     protected static final String MODEL_ATTRIBUTE_BOXES = "boxes";
-    
+
+    protected static final String MODEL_ATTRIBUTE_ATTRIBUTES = "attributes";
+
     protected static final String BOX_ADD_FORM_VIEW = "box/create";
     protected static final String BOX_EDIT_FORM_VIEW = "box/edit";
     protected static final String BOX_LIST_VIEW = "box/list";
@@ -40,6 +44,10 @@ public class BoxController extends AbstractController {
     
     @Resource
     private BoxService boxService;
+
+    @Resource
+    private AttributeService attributeService;
+
 
     /**
      * Processes delete box requests.
@@ -170,14 +178,22 @@ public class BoxController extends AbstractController {
         List<Box> boxes = boxService.findAll();
         model.addAttribute(MODEL_ATTRIBUTE_BOXES, boxes);
 
+        //this is a test
+        List<Attribute> attributes = attributeService.findAll();
+        model.addAttribute(MODEL_ATTRIBUTE_ATTRIBUTES, attributes);
+
         return BOX_LIST_VIEW;
     }
 
     /**
-     * This setter method should only be used by unit tests
+     * These setter methods should only be used by unit tests
      * @param boxService
      */
     protected void setBoxService(BoxService boxService) {
         this.boxService = boxService;
+    }
+
+    protected void setAttributeService(AttributeService attributeService) {
+        this.attributeService = attributeService;
     }
 }

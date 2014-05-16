@@ -7,6 +7,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -104,6 +105,13 @@ public class Box implements Serializable {
             built.boxType = boxType;
             built.attribute = attribute;
         }
+
+//        Builder(String boxType, String attribute, Set<Attribute> attributes) {
+//            built = new Box();
+//            built.boxType = boxType;
+//            built.attribute = attribute;
+//            built.attributes = attributes;
+//        }
 
         /**
          * Builds the new Box object.
