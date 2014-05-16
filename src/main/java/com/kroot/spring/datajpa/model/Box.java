@@ -1,17 +1,23 @@
 package com.kroot.spring.datajpa.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * An entity class which contains the information of a single box.
  */
 @Entity
 /*@Table(name = "boxes")*/
-@Table(name = "person")
-public class Box {
+@Table(name = "box")
+public class Box implements Serializable {
+
+//    private Set<Attribute> attributes = new HashSet<Attribute>(0);
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,7 +26,21 @@ public class Box {
     @Column(name = "boxType", nullable = false)
     private String boxType;
 
-    @Column(name = "attribute", nullable = false)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "boxattribute",
+    joinColumns = @JoinColumn(name = "boxid"),
+    inverseJoinColumns = { @JoinColumn(name = "attributeid")})
+    private Set<Attribute> attributes = new HashSet<Attribute>();
+
+    public Set<Attribute> getAttributes(){
+        return this.attributes;
+    }
+
+    public void setAttributes(Set<Attribute> attributes){
+        this.attributes = attributes;
+    }
+
+    @Column(name = "attributeX", nullable = false)
     private String attribute;
 
     public Long getId() {
@@ -41,9 +61,7 @@ public class Box {
         return boxType;
     }
 
-    public String getAttribute() {
-        return attribute;
-    }
+    public String getAttribute() {  return attribute;  }
 
     /**
      * Gets the box type and attribute.
