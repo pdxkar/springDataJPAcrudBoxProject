@@ -163,7 +163,7 @@ public class BoxController extends AbstractController {
         formObject.setBoxType(box.getBoxType());
         formObject.setAttribute(box.getAttribute());
         //experiment
-        formObject.setAttributeSet(box.getAttributeSet());
+//        formObject.setAttributeSet(box.getAttributeSet());
         
         return formObject;
     }
@@ -181,8 +181,8 @@ public class BoxController extends AbstractController {
         model.addAttribute(MODEL_ATTRIBUTE_BOXES, boxes);
 
         //this is a test
-        List<Attribute> attributes = attributeService.findAll();
-        model.addAttribute(MODEL_ATTRIBUTE_ATTRIBUTES, attributes);
+  //      List<Attribute> attributes = attributeService.findAll();
+  //      model.addAttribute(MODEL_ATTRIBUTE_ATTRIBUTES, attributes);
 
         return BOX_LIST_VIEW;
     }

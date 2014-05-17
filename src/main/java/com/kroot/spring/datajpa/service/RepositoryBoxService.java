@@ -28,7 +28,7 @@ public class RepositoryBoxService implements BoxService {
   //      Box box = Box.getBuilder(created.getBoxType(), created.getAttribute()).build();
 
         //experiment
-        Box box = Box.getBuilder(created.getBoxType(), created.getAttribute(), created.getAttributeSet()).build();
+        Box box = Box.getBuilder(created.getBoxType(), created.getAttribute(), created.getAttributes()).build();
         
         return boxRepository.save(box);
     }

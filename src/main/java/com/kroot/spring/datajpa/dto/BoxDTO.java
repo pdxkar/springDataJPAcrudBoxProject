@@ -17,7 +17,7 @@ public class BoxDTO {
     @NotEmpty
     private String attribute;
 
-    private Set<Attribute> attributeSet;
+    private Set<Attribute> attributes;
 
 
 //    private List<AttributeDTO> attributes;
@@ -48,8 +48,8 @@ public class BoxDTO {
     }
 
     //experiment
-    public Set<Attribute> getAttributeSet() { return attributeSet; }
-    public void setAttributeSet(Set<Attribute> attributeSet) {this.attributeSet = attributeSet; }
+    public Set<Attribute> getAttributes() { return attributes; }
+    public void setAttributes(Set<Attribute> attributes) {this.attributes = attributes; }
 
 //    public List<AttributeDTO> getAttributes() { return attributes; }
 //    public void setAttributes(List<AttributeDTO> attributes) {this.attributes = attributes; }
