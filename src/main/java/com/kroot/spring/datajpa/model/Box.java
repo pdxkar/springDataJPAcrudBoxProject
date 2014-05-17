@@ -31,14 +31,15 @@ public class Box implements Serializable {
     @JoinTable(name = "boxattribute",
     joinColumns = @JoinColumn(name = "boxid"),
     inverseJoinColumns = { @JoinColumn(name = "attributeid")})
-    private Set<Attribute> attributes = new HashSet<Attribute>();
+//    private Set<Attribute> attributes = new HashSet<Attribute>();
+    private Set<Attribute> attributeSet = new HashSet<Attribute>();
 
     public Set<Attribute> getAttributes(){
-        return this.attributes;
+        return this.attributeSet;
     }
 
     public void setAttributes(Set<Attribute> attributes){
-        this.attributes = attributes;
+        this.attributeSet = attributeSet;
     }
 
     @Column(name = "attributeX", nullable = false)
@@ -54,15 +55,15 @@ public class Box implements Serializable {
      * @param attribute  The attribute of the created box.
      * @return  A new Builder instance.
      */
-    public static Builder getBuilder(String boxType, String attribute) {
-        return new Builder(boxType, attribute);
-    }
+/*    public static Builder getBuilder(String boxType, String attribute) { return new Builder(boxType, attribute);    }*/
 
-    public String getBoxType() {
-        return boxType;
-    }
+    public static Builder getBuilder(String boxType, String attribute, Set<Attribute> attributeSet) { return new Builder(boxType, attribute, attributeSet);    }
+
+    public String getBoxType() { return boxType; }
 
     public String getAttribute() {  return attribute;  }
+
+    public Set<Attribute> getAttributeSet() { return attributeSet; }
 
     /**
      * Gets the box type and attribute.
@@ -100,18 +101,13 @@ public class Box implements Serializable {
          * @param boxType The type of the created Box object.
          * @param attribute  The attribute the created Box object.
          */
-        Builder(String boxType, String attribute) {
+ //       Builder(String boxType, String attribute) {
+        Builder(String boxType, String attribute, Set<Attribute> attributeSet) {
             built = new Box();
             built.boxType = boxType;
             built.attribute = attribute;
+            built.attributeSet = attributeSet;
         }
-
-//        Builder(String boxType, String attribute, Set<Attribute> attributes) {
-//            built = new Box();
-//            built.boxType = boxType;
-//            built.attribute = attribute;
-//            built.attributes = attributes;
-//        }
 
         /**
          * Builds the new Box object.

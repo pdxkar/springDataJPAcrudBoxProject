@@ -23,8 +23,12 @@ public class RepositoryBoxService implements BoxService {
     @Override
     public Box create(BoxDTO created) {
         LOGGER.debug("Creating a new box with information: " + created);
-        
-        Box box = Box.getBuilder(created.getBoxType(), created.getAttribute()).build();
+
+        //this works
+  //      Box box = Box.getBuilder(created.getBoxType(), created.getAttribute()).build();
+
+        //experiment
+        Box box = Box.getBuilder(created.getBoxType(), created.getAttribute(), created.getAttributeSet()).build();
         
         return boxRepository.save(box);
     }

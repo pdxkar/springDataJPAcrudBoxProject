@@ -1,3 +1,4 @@
+/*
 package com.kroot.spring.datajpa.service;
 
 import com.kroot.spring.datajpa.dto.BoxDTO;
@@ -135,3 +136,4 @@ public class RepositoryBoxServiceTest {
     }
 
 }
+*/

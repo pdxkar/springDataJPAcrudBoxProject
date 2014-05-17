@@ -1,11 +1,14 @@
+/*
 package com.kroot.spring.datajpa.model;
 
 import com.kroot.spring.datajpa.dto.BoxDTO;
 
+*/
 /**
 * An utility class which contains useful methods for unit testing box related
 * functions.
-*/
+*//*
+
 public class BoxTestUtil {
 
     public static BoxDTO createDTO(Long id, String boxType, String attribute) {
@@ -26,3 +29,4 @@ public class BoxTestUtil {
         return model;
     }
 }
+*/

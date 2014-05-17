@@ -1,3 +1,4 @@
+/*
 package com.kroot.spring.datajpa.context;
 
 import org.springframework.context.annotation.Bean;
@@ -12,4 +13,4 @@ public class TestContext {
     public LocalValidatorFactoryBean validator() {
         return new LocalValidatorFactoryBean();
     }
-}
+}*/

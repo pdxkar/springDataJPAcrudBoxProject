@@ -1,9 +1,11 @@
 package com.kroot.spring.datajpa.dto;
 
+import com.kroot.spring.datajpa.model.Attribute;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;
+import java.util.Set;
 
 public class BoxDTO {
     
@@ -14,6 +16,8 @@ public class BoxDTO {
 
     @NotEmpty
     private String attribute;
+
+    private Set<Attribute> attributeSet;
 
 
 //    private List<AttributeDTO> attributes;
@@ -42,6 +46,10 @@ public class BoxDTO {
     public void setAttribute(String attribute) {
         this.attribute = attribute;
     }
+
+    //experiment
+    public Set<Attribute> getAttributeSet() { return attributeSet; }
+    public void setAttributeSet(Set<Attribute> attributeSet) {this.attributeSet = attributeSet; }
 
 //    public List<AttributeDTO> getAttributes() { return attributes; }
 //    public void setAttributes(List<AttributeDTO> attributes) {this.attributes = attributes; }

@@ -162,6 +162,8 @@ public class BoxController extends AbstractController {
         formObject.setId(box.getId());
         formObject.setBoxType(box.getBoxType());
         formObject.setAttribute(box.getAttribute());
+        //experiment
+        formObject.setAttributeSet(box.getAttributeSet());
         
         return formObject;
     }

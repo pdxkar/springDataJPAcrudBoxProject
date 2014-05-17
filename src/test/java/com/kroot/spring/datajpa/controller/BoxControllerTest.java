@@ -1,3 +1,4 @@
+/*
 package com.kroot.spring.datajpa.controller;
 
 import com.kroot.spring.datajpa.dto.BoxDTO;
@@ -329,3 +330,4 @@ public class BoxControllerTest extends AbstractTestController {
         assertEquals(boxes, model.asMap().get(BoxController.MODEL_ATTRIBUTE_BOXES));
     }
 }
+*/

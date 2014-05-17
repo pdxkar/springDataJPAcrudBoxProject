@@ -1,3 +1,4 @@
+/*
 package com.kroot.spring.datajpa.controller;
 
 import org.junit.Before;
@@ -88,3 +89,4 @@ public class AbstractControllerTest {
 
     }
 }
+*/
