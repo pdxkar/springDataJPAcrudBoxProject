@@ -1,5 +1,7 @@
 package com.kroot.spring.datajpa.model;
 
+import com.kroot.spring.datajpa.dto.AttributeDTO;
+import com.kroot.spring.datajpa.dto.BoxDTO;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -22,17 +24,23 @@ public class Box implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long boxId;
 
     @Column(name = "boxType", nullable = false)
     private String boxType;
 
+    //Brenton's way
+//    @ManyToMany
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    private Set<Attribute> attributes;
+
+
+//    pkainulainen's way
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "boxattribute",
     joinColumns = @JoinColumn(name = "boxid"),
     inverseJoinColumns = { @JoinColumn(name = "attributeid")})
     private Set<Attribute> attributes = new HashSet<Attribute>();
-//    private Set<Attribute> attributeSet = new HashSet<Attribute>();
 
     public Set<Attribute> getAttributes(){ return this.attributes; }
  /*   public Set<Attribute> getAttributes(){
@@ -46,11 +54,11 @@ public class Box implements Serializable {
        this.attributeSet = attributeSet;
    }*/
 
-    @Column(name = "attributeX", nullable = false)
+    @Column(name = "attribute", nullable = false)
     private String attribute;
 
     public Long getId() {
-        return id;
+        return boxId;
     }
 
     /**
@@ -61,13 +69,20 @@ public class Box implements Serializable {
      */
  //   public static Builder getBuilder(String boxType, String attribute) { return new Builder(boxType, attribute);    }
 
-    public static Builder getBuilder(String boxType, String attribute, Set<Attribute> attributeSet) { return new Builder(boxType, attribute, attributeSet);    }
+    //this kind of worked
+   public static Builder getBuilder(String boxType, String attribute, Set<Attribute> attributeSet) { return new Builder(boxType, attribute, attributeSet);    }
+
+    //experiment - this worked
+//    public static Builder getBuilder(String boxType, String attribute, Set<Attribute> attributes) { return new Builder(boxType, attribute, attributes);    }
+
+    //experiment - this didn't work at all
+//    public static Builder getBuilder(String boxType, String attribute, Set<AttributeDTO> attributes) { return new Builder(boxType, attribute, attributes);    }
 
     public String getBoxType() { return boxType; }
 
     public String getAttribute() {  return attribute;  }
 
- //   public Set<Attribute> getAttributes() { return attributes; }
+
 
     /**
      * Gets the box type and attribute.
@@ -120,13 +135,34 @@ public class Box implements Serializable {
         public Box build() {
             return built;
         }
+
+
     }
+
+    //try this constructor stuff brenton did:
+//    public Box() {}
+//
+//    public Box(String boxType){
+//        this.boxType = boxType;
+//    }
+//
+//    //brenton has this kind of constructor:
+//    public Box(BoxDTO boxDTO){
+//        this.boxType = boxDTO.getBoxType();
+//
+//        if(boxDTO.getAttributes() != null){
+//            this.attributes = new HashSet<Attribute>(boxDTO.getAttributes().size());
+//            for(AttributeDTO attributeDTO : boxDTO.getAttributes()){
+//                this.attributes.add(new Attribute(attributeDTO));
+//            }
+//        }
+//    }
 
     /**
      * This setter method should only be used by unit tests.
      * @param id
      */
     protected void setId(Long id) {
-        this.id = id;
+        this.boxId = id;
     }
 }

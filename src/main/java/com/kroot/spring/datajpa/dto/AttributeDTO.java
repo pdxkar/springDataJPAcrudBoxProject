@@ -1,5 +1,6 @@
 package com.kroot.spring.datajpa.dto;
 
+import com.kroot.spring.datajpa.model.Attribute;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -8,10 +9,13 @@ public class AttributeDTO {
     private Long id;
 
     @NotEmpty
-    private String attribute;
+    private String attributeName;
 
-    public AttributeDTO() {
+    //Brenton used constructors like this:
+    public AttributeDTO() { }
 
+    public AttributeDTO(Attribute attribute){
+        attributeName = attribute.getAttribute();
     }
 
     public Long getId() {
@@ -23,11 +27,11 @@ public class AttributeDTO {
     }
 
     public String getAttribute() {
-        return attribute;
+        return attributeName;
     }
 
     public void setAttribute(String attribute) {
-        this.attribute = attribute;
+        this.attributeName = attribute;
     }
 
     @Override

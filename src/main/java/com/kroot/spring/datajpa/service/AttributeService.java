@@ -38,6 +38,8 @@ public interface AttributeService {
      */
     public Attribute findById(Long id);
 
+//    public Attribute getAttributeByAttribute(String attribute);
+
 //    /**
 //     * Updates the information of an attribute.
 //     * @param updated   The information of the updated attribute.

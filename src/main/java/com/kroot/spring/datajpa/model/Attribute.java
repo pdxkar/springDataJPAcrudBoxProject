@@ -1,6 +1,9 @@
 package com.kroot.spring.datajpa.model;
 
+import com.kroot.spring.datajpa.dto.AttributeDTO;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -21,13 +24,31 @@ public class Attribute {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long attributeId;
 
     @Column(name = "attribute", nullable = false)
     private String attribute;
 
+    //brenton's way
+//    @ManyToMany(mappedBy = "attributes")
+//    @LazyCollection(LazyCollectionOption.EXTRA)
+//    @Cascade(CascadeType.ALL)
+//    private Set<Box> boxes;
+
+    //    pkainulainen's way
     @ManyToMany(mappedBy = "attributes")
     private Set<Box> boxes = new HashSet<Box>();
+
+    //try this constructor stuff that brenton did:
+//    public Attribute(){  }
+//
+//    public Attribute(String attribute){
+//        this.attribute = attribute;
+//    }
+//
+//    public Attribute(AttributeDTO attributeDTO){
+//        attribute = attributeDTO.getAttribute();
+//    }
 
     public Set<Box> getBoxes() {return this.boxes;}
 
@@ -38,7 +59,7 @@ public class Attribute {
     public String getAttribute() {  return attribute;  }
 
     public Long getId() {
-        return id;
+        return attributeId;
     }
 }
 

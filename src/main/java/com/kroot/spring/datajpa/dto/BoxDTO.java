@@ -1,6 +1,7 @@
 package com.kroot.spring.datajpa.dto;
 
 import com.kroot.spring.datajpa.model.Attribute;
+import com.kroot.spring.datajpa.model.Box;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public class BoxDTO {
-    
+
     private Long id;
 
     @NotEmpty
@@ -19,12 +20,21 @@ public class BoxDTO {
 
     private Set<Attribute> attributes;
 
+  //  private List<AttributeDTO> boxAttributes;
+
 
 //    private List<AttributeDTO> attributes;
 
-    public BoxDTO() {
-
-    }
+//    //brenton had these constructors in place:
+//    public BoxDTO() { }
+//
+//    public BoxDTO(Box box){
+//        boxType = box.getBoxType();
+//        Set<Attribute> attributes = box.getAttributes();
+//        for(Attribute attribute : attributes){
+//            boxAttributes.add(new AttributeDTO(attribute));
+//        }
+//    }
 
     public Long getId() {
         return id;
@@ -50,10 +60,8 @@ public class BoxDTO {
     //experiment
     public Set<Attribute> getAttributes() { return attributes; }
     public void setAttributes(Set<Attribute> attributes) {this.attributes = attributes; }
-
-//    public List<AttributeDTO> getAttributes() { return attributes; }
-//    public void setAttributes(List<AttributeDTO> attributes) {this.attributes = attributes; }
-
+//    public List<AttributeDTO> getAttributes() { return boxAttributes; }
+//    public void setAttributes(List<AttributeDTO> attributes) {this.boxAttributes = attributes; }
 
     @Override
     public String toString() {

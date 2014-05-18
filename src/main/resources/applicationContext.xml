@@ -29,4 +29,5 @@
     <jpa:repositories base-package="com.kroot.spring.datajpa.repository"/>
 
 
+
 </beans>
